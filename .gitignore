@@ -3,3 +3,5 @@
 **/*ipynb_checkpoint
 **/*uv.lock
 assets/output
+.DS_Store
+.vscode
