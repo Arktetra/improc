@@ -63,3 +63,49 @@ def pixel_iterator(img_src : np.ndarray, callback: any, img_dest : np.ndarray) -
             img_dest[x][y] = callback(col)
 
 
+
+# 2d convolution
+def conv2d(img: np.ndarray, kernel: np.ndarray) -> np.ndarray:
+
+    img_width, img_height = img.shape[0], img.shape[1]
+    k_width, k_height = kernel.shape
+    pad_w = k_width // 2
+    pad_h = k_height // 2
+
+    padded_img = np.pad(img, ((pad_w, pad_w), (pad_h, pad_h)), mode = 'constant')
+
+    result = np.zeros_like(img)
+
+    for i in range(img.shape[0]):
+        for j in range(img.shape[1]):
+            region = padded_img[i: i + k_width, j: j + k_height]
+
+            result[i, j] = np.sum(region * kernel)
+
+    # np.clip(result, a_min = 0, a_max = 255)
+
+    return result 
+
+# this is not for use... 
+# # 2d convolution for RGB
+# def conv2d_rgb(img: np.ndarray, kernel: np.ndarray) -> np.ndarray:
+
+#     img_width, img_height = img.shape[0], img.shape[1]
+#     k_width, k_height = kernel.shape
+#     pad_w = k_width // 2
+#     pad_h = k_height // 2
+
+#     padded_img = np.pad(img, ((pad_w, pad_w), (pad_h, pad_h), (0, 0)), mode = 'constant')
+
+#     result = np.zeros_like(img)
+
+#     for i in range(img.shape[0]):
+#         for j in range(img.shape[1]):
+#             for k in range(img.shape[2]):
+#                 region = padded_img[i: i + k_width, j: j + k_height][k]
+
+#                 result[i, j][k] = np.sum(region * kernel)
+
+#     # np.clip(result, a_min = 0, a_max = 255)
+
+#     return result 
