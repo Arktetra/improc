@@ -2,6 +2,7 @@
 **/*__pycache__
 **/*ipynb_checkpoint
 **/*uv.lock
+assets
 assets/output
 .DS_Store
 .vscode
